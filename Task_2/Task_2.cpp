@@ -49,6 +49,9 @@ namespace Task2 {
 			queue1.push(8);
 			queue1.push(9);
 			queue1.push(10);
+			queue1.pull();
+			queue1.pull();
+			queue1.pull();
 			int sum = 0;
 			Iterator<int> queue_iter(queue1);
 			queue_iter.start();
@@ -56,7 +59,7 @@ namespace Task2 {
 				sum += queue_iter.getValue();
 				queue_iter.next();
 			}
-			Assert::AreEqual(55, sum);
+			Assert::AreEqual(49, sum);
 		}
 	};
 }
