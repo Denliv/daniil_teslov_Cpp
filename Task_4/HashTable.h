@@ -131,6 +131,9 @@ public:
 		delete& iter;
 	}
 	bool searchElem(const T& obj) {
+		if (this->number_of_elements == 0) {
+			return false;
+		}
 		auto& iter = headIterator();
 		iter.start();
 		while (!iter.finish()) {
@@ -153,8 +156,11 @@ public:
 		return arr;
 	}
 	void makeEmpty() {
-		Node<T>* current = &(this->arr[0]);
+		if (this->arr == nullptr) {
+			return;
+		}
 		for (int i = 0; i < this->size; ++i) {
+			Node<T>* current = &(this->arr[i]);
 			while (current->next != current) {
 				Node<T>* temp = current->next->next;
 				delete current->next;
@@ -163,12 +169,10 @@ public:
 			}
 		}
 	}
-	void isEmpty() {
-		if (this->arr == nullptr) {
-			return;
-		}
+	bool isEmpty() {
 		for (int i = 0; i < this->size; ++i) {
-			if (this->arr[i]->next != this->arr[i]) {
+			Node<T>* temp = &(this->arr[i]);
+			if (temp->next != temp) {
 				return false;
 			}
 		}
