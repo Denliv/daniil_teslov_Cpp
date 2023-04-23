@@ -28,6 +28,26 @@ namespace Task4 {
 			iter.next();
 			Assert::AreEqual(5, iter.getElem());
 			iter.next();
+			//Проверка итератора LinkedHashTable
+			iter.startList();
+			Assert::AreEqual(1, iter.getListElem());
+			iter.nextList();
+			Assert::AreEqual(2, iter.getListElem());
+			iter.nextList();
+			Assert::AreEqual(3, iter.getListElem());
+			iter.nextList();
+			Assert::AreEqual(4, iter.getListElem());
+			iter.nextList();
+			Assert::AreEqual(5, iter.getListElem());
+			iter.nextList();
+			//Проверка итератора LinkedHashTable выводом
+			Logger::WriteMessage("LIST_ITERATOR\n");
+			iter.startList();
+			while (!iter.finishList()) {
+				std::string temp = std::to_string(iter.getListElem()) + "\n";
+				Logger::WriteMessage(temp.c_str());
+				iter.nextList();
+			}
 			//Тест на получение несуществующего элемента
 			try {
 				iter.getElem();
@@ -36,7 +56,7 @@ namespace Task4 {
 				Assert::AreEqual("Can not get current element\n", ex.what());
 			}
 			//Проверка toString()
-			Logger::WriteMessage("NOT_EMPTY_TABLE:\n");
+			Logger::WriteMessage("\nNOT_EMPTY_TABLE:\n");
 			Logger::WriteMessage(table1.toString().c_str());
 			//Поиск элементов
 			Assert::IsTrue(table1.searchElem(1));

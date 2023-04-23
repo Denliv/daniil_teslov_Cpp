@@ -13,9 +13,12 @@ private:
 	struct Node {
 		Node<K>* next;
 		Node<K>* prev;
+		Node<K>* list_next;
+		Node<K>* list_prev;
 		K* value;
 	};
 	Node<T>* arr = nullptr;
+	Node<T>* list;
 	int size = 0;
 	int number_of_elements = 0;
 public:
@@ -30,6 +33,9 @@ public:
 		void start() {
 			arr_index = 0;
 			current = &iterable.arr[0];
+		}
+		void startList() {
+			current = iterable.list;
 		}
 		const V& getElem() {
 			if (finish()) {
@@ -46,6 +52,12 @@ public:
 			}
 			return *(current->next->value);
 		}
+		const V& getListElem() {
+			if (finishList()) {
+				throw std::overflow_error("Can not get current element\n");
+			}
+			return *(current->list_next->value);
+		}
 		void next() {
 			while (current->next->value == nullptr && !finish()) {
 				arr_index++;
@@ -55,8 +67,16 @@ public:
 				current = current->next;
 			}
 		}
+		void nextList() {
+			if (current->list_next != iterable.list) {
+				current = current->list_next;
+			}
+		}
 		bool finish() {
 			return current->next == &iterable.arr[iterable.size - 1];
+		}
+		bool finishList() {
+			return current->list_next == iterable.list;
 		}
 		Node<V>* getCurrent() {
 			return current;
@@ -71,6 +91,8 @@ public:
 	HashTable() : HashTable(10) {}
 	HashTable(int size) {
 		arr = new Node<T>[size];
+		list = new Node<T>();
+		list->list_next = list->list_prev = list;
 		this->size = size;
 		this->number_of_elements = 0;
 		for (int i = 0; i < this->size; ++i) {
@@ -91,6 +113,7 @@ public:
 	~HashTable() {
 		makeEmpty();
 		delete[] arr;
+		delete list;
 	}
 	void push(const T& obj) {
 		T* elem = new T(obj);
@@ -107,6 +130,10 @@ public:
 		newElem->prev = temp->prev;
 		temp->prev->next = newElem;
 		temp->prev = newElem;
+		newElem->list_next = list;
+		newElem->list_prev = list->list_prev;
+		list->list_prev->list_next = newElem;
+		list->list_prev = newElem;
 		this->number_of_elements++;
 	}
 	void deleteElem(const T& obj) {
@@ -123,6 +150,9 @@ public:
 				Node<T>* temp_next = temp->next;
 				temp_prev->next = temp_next;
 				temp_next->prev = temp_prev;
+				temp->list_next->list_prev = temp->list_prev;
+				temp->list_prev->list_next = temp->list_next;
+				delete temp;
 				this->number_of_elements--;
 				break;
 			}
