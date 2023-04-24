@@ -40,6 +40,7 @@ public:
 			clear(rootCopy);
 			throw binary_tree_exception("Error:copy tree");
 		}
+		return rootCopy;
 	}
 	BinaryTree(BinaryTree&& tree) {
 		this->root = tree.root;
@@ -139,9 +140,6 @@ public:
 	}
 	std::vector<int> find(int x) {
 		TreeNode* root = this->root;
-		if (!root) {
-			throw binary_tree_exception("Error:find\n");
-		}
 		std::vector<int> temp;
 		while (root) {
 			if (root->info == x) {
@@ -159,6 +157,7 @@ public:
 				throw binary_tree_exception("Error:find\n");
 			}
 		}
+		throw binary_tree_exception("Error:find\n");
 	}
 	bool inTree(int x, TreeNode* root) {
 		if (!root) {
