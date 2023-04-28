@@ -254,9 +254,22 @@ public:
 			root = root->left;
 		}
 		else {
-			deleteTwoSubtrees(root->left, temp);
-			delete temp;
-			return balanceDeleteToLeft(root);
+			//deleteTwoSubtrees(root->left, temp);
+			BalTreeNode* leftSubTree = root->left;
+			while (leftSubTree->right != nullptr) {
+				leftSubTree = leftSubTree->right;
+			}
+			BalTreeNode* newRoot = new BalTreeNode();
+			newRoot->word = leftSubTree->word;
+			newRoot->frequency = leftSubTree->frequency;
+			deleteWord(root, leftSubTree->word);
+			root->word = newRoot->word;
+			root->frequency = newRoot->frequency;
+			delete newRoot;
+			return true;
+			/*delete temp;
+			balanceDeleteToLeft(root);
+			return true;*/
 		}
 		delete temp;
 		return true;
@@ -264,7 +277,7 @@ public:
 	void deleteTwoSubtrees(BalTreeNode*& leftSubTree, BalTreeNode*& root) {
 		if (leftSubTree->right) {
 			deleteTwoSubtrees(leftSubTree->right, root);
-			balanceDeleteToRight(root);
+			//balanceDeleteToRight(root);
 		}
 		else {
 			root->word = leftSubTree->word;
