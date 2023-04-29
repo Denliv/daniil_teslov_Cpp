@@ -46,6 +46,27 @@ namespace Task6
 			Logger::WriteMessage("DELETE H =>\n");
 			dic1.deleteWord(dic1.getRoot(), "H");
 			Logger::WriteMessage((dic1.toLevelString(dic1.getRootCopy(), 0) + "\n").c_str());
+			Logger::WriteMessage("DICTIONARY_2\n");
+			Dictionary dic2;
+			dic2.addWord(dic2.getRoot(), "E");
+			dic2.addWord(dic2.getRoot(), "B");
+			dic2.addWord(dic2.getRoot(), "F");
+			dic2.addWord(dic2.getRoot(), "C");
+			dic2.addWord(dic2.getRoot(), "A");
+			Logger::WriteMessage((dic2.toLevelString(dic2.getRootCopy(), 0) + "\n").c_str());
+			Logger::WriteMessage("ADD D =>\n");
+			dic2.addWord(dic2.getRoot(), "D");
+			Logger::WriteMessage((dic2.toLevelString(dic2.getRootCopy(), 0) + "\n").c_str());
+			Logger::WriteMessage("DICTIONARY_3\n");
+			Dictionary dic3;
+			dic3.addWord(dic3.getRoot(), "D");
+			dic3.addWord(dic3.getRoot(), "C");
+			dic3.addWord(dic3.getRoot(), "E");
+			dic3.addWord(dic3.getRoot(), "A");
+			Logger::WriteMessage((dic3.toLevelString(dic3.getRootCopy(), 0) + "\n").c_str());
+			Logger::WriteMessage("ADD B =>\n");
+			dic3.addWord(dic3.getRoot(), "B");
+			Logger::WriteMessage((dic3.toLevelString(dic3.getRootCopy(), 0) + "\n").c_str());
 		}
 	};
 }

@@ -165,7 +165,7 @@ public:
 	}
 	bool RRotation(BalTreeNode*& root, bool deleteMethod) {
 		BalTreeNode* rootB = root->left;
-		rootB->balance -= 1;
+		rootB->balance += 1;
 		root->balance = -rootB->balance;
 		root->left = rootB->right;
 		rootB->right = root;
@@ -174,7 +174,8 @@ public:
 	}
 	bool LRotation(BalTreeNode*& root, bool deleteMethod) {
 		BalTreeNode* rootB = root->right;
-		rootB->balance = root->balance = 0;
+		rootB->balance -= 1;
+		root->balance = -rootB->balance;
 		root->right = rootB->left;
 		rootB->left = root;
 		root = rootB;
@@ -193,8 +194,8 @@ public:
 		}
 		else {
 			rootC->balance = 0;
-			root->balance = -1;
-			rootB->balance = 1;
+			root->balance = 0;
+			rootB->balance = 0;
 		}
 		root->left = rootC->right;
 		rootB->right = rootC->left;
@@ -216,8 +217,8 @@ public:
 		}
 		else {
 			rootC->balance = 0;
-			root->balance = -1;
-			rootB->balance = 1;
+			root->balance = 0;
+			rootB->balance = 0;
 		}
 		root->right = rootC->left;
 		rootB->left = rootC->right;
@@ -261,11 +262,11 @@ public:
 			BalTreeNode* newRoot = new BalTreeNode();
 			newRoot->word = leftSubTree->word;
 			newRoot->frequency = leftSubTree->frequency;
-			deleteWord(root, leftSubTree->word);
+			bool flag = deleteWord(root, leftSubTree->word);
 			root->word = newRoot->word;
 			root->frequency = newRoot->frequency;
 			delete newRoot;
-			return true;
+			return flag;
 		}
 		delete temp;
 		return true;
@@ -316,7 +317,7 @@ public:
 		for (int i = 0; i < tab; ++i) {
 			temp += " ";
 		}
-		return temp + root->word + "::" + std::to_string(root->frequency) + "\n"
+		return temp + root->word + "::" + std::to_string(root->balance) + "\n"
 			+ toLevelString(root->left, tab + 1)
 			+ toLevelString(root->right, tab + 1);
 	}
