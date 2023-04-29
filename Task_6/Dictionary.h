@@ -309,7 +309,7 @@ public:
 			+ root->word + "::" + std::to_string(root->frequency)
 			+ " " + toString(root->right);
 	}
-	std::string toLevelString(BalTreeNode* root, int tab) {
+	std::string toLevelStringWithBalance(BalTreeNode* root, int tab) {
 		if (!root) {
 			return "";
 		}
@@ -318,7 +318,7 @@ public:
 			temp += " ";
 		}
 		return temp + root->word + "::" + std::to_string(root->balance) + "\n"
-			+ toLevelString(root->left, tab + 1)
-			+ toLevelString(root->right, tab + 1);
+			+ toLevelStringWithBalance(root->left, tab + 1)
+			+ toLevelStringWithBalance(root->right, tab + 1);
 	}
 };
