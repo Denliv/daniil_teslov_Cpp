@@ -254,7 +254,6 @@ public:
 			root = root->left;
 		}
 		else {
-			//deleteTwoSubtrees(root->left, temp);
 			BalTreeNode* leftSubTree = root->left;
 			while (leftSubTree->right != nullptr) {
 				leftSubTree = leftSubTree->right;
@@ -267,24 +266,9 @@ public:
 			root->frequency = newRoot->frequency;
 			delete newRoot;
 			return true;
-			/*delete temp;
-			balanceDeleteToLeft(root);
-			return true;*/
 		}
 		delete temp;
 		return true;
-	}
-	void deleteTwoSubtrees(BalTreeNode*& leftSubTree, BalTreeNode*& root) {
-		if (leftSubTree->right) {
-			deleteTwoSubtrees(leftSubTree->right, root);
-			//balanceDeleteToRight(root);
-		}
-		else {
-			root->word = leftSubTree->word;
-			root->frequency = leftSubTree->frequency;
-			root = leftSubTree;
-			leftSubTree = leftSubTree->left;
-		}
 	}
 	int findWord(std::string word) {
 		if (!this->root) {
