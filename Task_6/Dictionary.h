@@ -262,9 +262,10 @@ public:
 			BalTreeNode* newRoot = new BalTreeNode();
 			newRoot->word = leftSubTree->word;
 			newRoot->frequency = leftSubTree->frequency;
+			leftSubTree->frequency = 1;
 			bool flag = deleteWord(root, leftSubTree->word);
-			root->word = newRoot->word;
-			root->frequency = newRoot->frequency;
+			temp->word = newRoot->word;
+			temp->frequency = newRoot->frequency;
 			delete newRoot;
 			return flag;
 		}

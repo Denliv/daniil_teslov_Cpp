@@ -99,13 +99,13 @@ public:
 		if (!root) {
 			return 0;
 		}
-		return root->info % 2 == 0 + numberOfEvenElements(root->left) + numberOfEvenElements(root->left);
+		return root->info % 2 == 0 + numberOfEvenElements(root->left) + numberOfEvenElements(root->right);
 	}
 	int numberOfElements(TreeNode* root) {
 		if (!root) {
 			return 0;
 		}
-		return 1 + numberOfElements(root->left) + numberOfElements(root->left);
+		return 1 + numberOfElements(root->left) + numberOfElements(root->right);
 	}
 	bool isPositive(TreeNode* root) {
 		if (!root) {
